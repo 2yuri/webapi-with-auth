@@ -2,9 +2,9 @@
 
 ## Acesse no youtube:
 
-<a href="https://www.youtube.com/watch?v=socM14c9Vfk">
+<a href="https://youtu.be/jr6nbTALUAA">
   <img src="https://img.shields.io/badge/-ASSSITA%20AQUI-black?style=for-the-badge&logo=youtube&color=red"></img>
-</>
+</a>
 
 ### API Docs
 
@@ -16,20 +16,26 @@
 $ docker-compose up --build
 ```
 
-### Run Database
+## Introdução
 
+- [x] O que é JWT
+
+```bash
+go get github.com/dgrijalva/jwt-go
 ```
-$ go run main.go
+
+- [x] LGPD
+
+## Passo a passo
+
+- [x] Clonar repositório base
+
+```bash
+https://github.com/hyperyuri/webapi-with-go
 ```
 
-### Migrations
-
-- Migrations is auto runned when start the database
-
-### Seeds
-
-- Run seeds is manual, you have to run
-
-```
-$ go run database/seeder/main.go
-```
+- [x] Criar usuario (model e controller)
+- [x] Encode password para SHA256
+- [x] Gerar JWT
+- [x] Criar login (model e controller)
+- [x] Criar middlewares no GIN
