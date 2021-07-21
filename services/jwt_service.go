@@ -56,12 +56,26 @@ func (s *jwtService) ValidateToken(token string) bool {
 	return err == nil
 }
 
-func (s *jwtService) DecodeToken(token string) (*jwt.Token, error) {
-	return jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
-		if _, isValid := t.Method.(*jwt.SigningMethodHMAC); !isValid {
-			return nil, fmt.Errorf("invalid token: %v", token)
+func (s *jwtService) GetIDFromToken(t string) (int64, error) {
+	token, err := jwt.Parse(t, func(token *jwt.Token) (interface{}, error) {
+		if _, isvalid := token.Method.(*jwt.SigningMethodHMAC); !isvalid {
+			return nil, fmt.Errorf("invalid Token: %v", t)
+		}
+		return []byte(config.GetConfig().JWTSecretKey), nil
+	})
+	if err != nil {
+		return 0, err
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		id := claims["sum"].(string)
+		val, err := strconv.ParseInt(id, 10, 64)
+		if err != nil {
+			return 0, err
 		}
 
-		return []byte(s.secretKey), nil
-	})
+		return val, nil
+	}
+
+	return 0, err
 }
