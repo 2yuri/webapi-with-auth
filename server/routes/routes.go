@@ -7,6 +7,8 @@ import (
 )
 
 func ConfigRoutes(router *gin.Engine) *gin.Engine {
+	router.Use(middlewares.CORSMiddleware())
+	
 	main := router.Group("api/v1")
 	{
 		user := main.Group("user")
